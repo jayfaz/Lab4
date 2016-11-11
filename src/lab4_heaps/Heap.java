@@ -5,25 +5,25 @@ import java.util.ArrayList;
 public class Heap implements MyHeap{
 	
 	private Node root;
-	private ArrayList<Node> list = new ArrayList<Node>();
-	
+	private int size;
+
+	/*
+	 * Creates a node and sets the value
+	 */
 	public Node makeHeap(Comparable value) {
-		list.add(root = new Node(value));
+		this.root = new Node(value);
+		size++;
 		return root;
 	}
 	
-	public boolean isEmpty() {
+	public boolean isEmpty() { //checks if root is empty
 		return root == null;
 	}
 	
 	public boolean insert(Comparable value) {
-		Node node1 = new Node(value, null, null, list.get((list.size()+1)/2));
-		list.add(node1);
-		while(node1.getData().compareTo(node1.getParent().getData()) < 0) {
-			shiftUp(node1);
-		}
+		Node n = new Node(value, null, null, findParent());
+		size++;
 		
-		return true;
 	}
 	
 	public boolean deleteMin() {
@@ -52,5 +52,22 @@ public class Heap implements MyHeap{
 		n.setData(nodePar.getData());
 		nodePar.setData(temp.getData());
 		
+	}
+	
+	public boolean isNodeFull(node n) {
+			return(n.getLeftChild() != null && n.getRightChild != null);
+	}
+	
+	public Node findParent() {
+		if(root.getLeftChild == null) {
+			return root;
+		}
+	}
+	
+	public String toBinary(int n) {
+		String tempString;
+		if(n > 0) {
+			return n%2 + toBinary(n/2);
+		}
 	}
 }
